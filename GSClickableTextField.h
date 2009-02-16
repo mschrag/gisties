@@ -10,7 +10,7 @@
 
 
 @interface GSClickableTextField : NSTextField {
-
+	BOOL _editRequested;
 }
 
 - (void)makeActive;

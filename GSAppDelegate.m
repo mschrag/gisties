@@ -9,6 +9,7 @@
 #import "GSAppDelegate.h"
 #import "GSGisty.h"
 #import "GSSaveToGitHubOperation.h"
+#import "GSLoadFromGitHubOperation.h"
 
 @implementation GSAppDelegate
 
@@ -32,13 +33,24 @@
 	}
 }
 
+- (BOOL)windowShouldClose:(id)window {
+	return [super windowShouldClose:window];
+}
+
+- (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo {
+	NSLog(@"test");
+}
+
+
 - (void)dealloc {
 	[_syncQueue release];
 	[super dealloc];
 }
 
 - (void)loadFromGitHub:(GSGist *)gist {
-	
+	GSLoadFromGitHubOperation *operation = [[GSLoadFromGitHubOperation alloc] initWithGist:gist];
+	[_syncQueue addOperation:operation];
+	[operation release];
 }
 
 - (void)saveToGitHub:(GSGist *)gist {
@@ -58,4 +70,9 @@
 - (NSString *)token {
 	return @"XXX";
 }
+
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
+	return NO;
+}
+
 @end

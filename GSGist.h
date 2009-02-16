@@ -53,6 +53,7 @@
 - (void)deleteFromGitHub:(NSError **)error;
 - (NSString *)gistyFolder;
 - (NSString *)gistyFile;
+- (void)updateFolderAttributes:(NSError **)error;
 
 + (NSString *)gistiesFolder;
 

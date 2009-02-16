@@ -21,4 +21,6 @@
 @property (retain, readwrite) IBOutlet NSTextView *contentView;
 @property (retain, readwrite) GSGist *gist;
 
+- (IBAction)reload:(id)sender;
+
 @end

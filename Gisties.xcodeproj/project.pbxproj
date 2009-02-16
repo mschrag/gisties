@@ -12,6 +12,7 @@
 		5545A0060F4852A100F0AF5B /* GSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5545A0050F4852A100F0AF5B /* GSAppDelegate.m */; };
 		5545A0E80F48779E00F0AF5B /* GSSaveToGitHubOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5545A0E70F48779E00F0AF5B /* GSSaveToGitHubOperation.m */; };
 		5545A1810F4881B700F0AF5B /* UKXattrMetadataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5545A1800F4881B700F0AF5B /* UKXattrMetadataStore.m */; };
+		559C9E1C0F4920AC00F8F8C9 /* GSLoadFromGitHubOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 559C9E1B0F4920AC00F8F8C9 /* GSLoadFromGitHubOperation.m */; };
 		559E99690F4742A10028EA32 /* GSGist.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E99670F4742A10028EA32 /* GSGist.m */; };
 		559E9AB70F4796DA0028EA32 /* NSDictionary+http.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E9AB60F4796DA0028EA32 /* NSDictionary+http.m */; };
 		559E9C160F47ACF30028EA32 /* GSClickableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E9C150F47ACF30028EA32 /* GSClickableTextField.m */; };
@@ -44,6 +45,8 @@
 		5545A0E90F4878BB00F0AF5B /* GSAuthDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAuthDelegate.h; sourceTree = "<group>"; };
 		5545A17F0F4881B700F0AF5B /* UKXattrMetadataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKXattrMetadataStore.h; sourceTree = "<group>"; };
 		5545A1800F4881B700F0AF5B /* UKXattrMetadataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKXattrMetadataStore.m; sourceTree = "<group>"; };
+		559C9E1A0F4920AC00F8F8C9 /* GSLoadFromGitHubOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSLoadFromGitHubOperation.h; sourceTree = "<group>"; };
+		559C9E1B0F4920AC00F8F8C9 /* GSLoadFromGitHubOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSLoadFromGitHubOperation.m; sourceTree = "<group>"; };
 		559E99670F4742A10028EA32 /* GSGist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSGist.m; sourceTree = "<group>"; };
 		559E99680F4742A10028EA32 /* GSGist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSGist.h; sourceTree = "<group>"; };
 		559E9AB50F4796DA0028EA32 /* NSDictionary+http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+http.h"; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 			children = (
 				5545A0E60F48779E00F0AF5B /* GSSaveToGitHubOperation.h */,
 				5545A0E70F48779E00F0AF5B /* GSSaveToGitHubOperation.m */,
+				559C9E1A0F4920AC00F8F8C9 /* GSLoadFromGitHubOperation.h */,
+				559C9E1B0F4920AC00F8F8C9 /* GSLoadFromGitHubOperation.m */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 				5545A1810F4881B700F0AF5B /* UKXattrMetadataStore.m in Sources */,
 				55BC39C40F48EDAC00BE6317 /* GSCustomWindow.m in Sources */,
 				55BA5E250F48FF3800428799 /* GSCustomWindowView.m in Sources */,
+				559C9E1C0F4920AC00F8F8C9 /* GSLoadFromGitHubOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

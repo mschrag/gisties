@@ -34,6 +34,19 @@
 	return @"Gisty";
 }
 
+- (void)windowDidMove:(NSNotification *)notification {
+	NSError *error;
+	[[self gist] setFrame:[[notification object] frame]];
+	[[self gist] updateFolderAttributes:&error];
+}
+
+- (void)windowDidResize:(NSNotification *)notification {
+	NSError *error;
+	[[self gist] setFrame:[[notification object] frame]];
+	[[self gist] updateFolderAttributes:&error];
+}
+
+
 - (void)windowControllerDidLoadNib:(NSWindowController *)controller {
 	[controller setShouldCascadeWindows:NO];
 	
@@ -43,11 +56,12 @@
 		[[controller window] setFrame:[_gist frame] display:YES];
 	}
 	[_contentView setTextContainerInset:NSMakeSize(6, 10)];
+	[[[controller window] standardWindowButton:NSWindowCloseButton] setEnabled:YES];
 }
 
 - (void)saveDocumentWithDelegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo {
 	NSError *error;
-	[_gist setFrame:[[[[self windowControllers] lastObject] window] frame]];
+	//[_gist setFrame:[[[[self windowControllers] lastObject] window] frame]];
 	[_gist saveToDisk:&error];
 	[(GSAppDelegate *)[[NSApplication sharedApplication] delegate] saveToGitHub:_gist];
 	if (delegate) {
@@ -71,7 +85,6 @@
 - (void)runModalSavePanelForSaveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo {
 	/*
 	*/
-	NSLog(@"modal save");
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
@@ -131,4 +144,9 @@
 	[super dealloc];
 }
 
+- (IBAction)reload:(id)sender {
+	if (![[self gist] temporary]) {
+		[(GSAppDelegate *)[[NSApplication sharedApplication] delegate] loadFromGitHub:[self gist]];
+	}
+}
 @end

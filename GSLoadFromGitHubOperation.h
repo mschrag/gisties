@@ -1,5 +1,5 @@
 //
-//  BorderlessWindow.h
+//  GSLoadFromGitHubOperation.h
 //  Gisties
 //
 //  Created by Michael Schrag on 2/15/09.
@@ -7,11 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GSGist.h"
 
-
-@interface GSCustomWindow : NSWindow {
-	NSPoint _initialLocation;
-	BOOL _resizing;
+@interface GSLoadFromGitHubOperation : NSOperation {
+	GSGist *_gist;
 }
+
+-(id)initWithGist:(GSGist *)gist;
 
 @end

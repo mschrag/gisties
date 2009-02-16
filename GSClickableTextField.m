@@ -41,8 +41,23 @@
 	[self setFrame:NSMakeRect(frame.origin.x + 2, frame.origin.y - 1, frame.size.width - 4, frame.size.height - 2)];
 }
 
+- (void)mouseDragged:(NSEvent *)theEvent {
+	_editRequested = NO;
+	[super mouseDragged:theEvent];
+}
+
 - (void)mouseDown:(NSEvent *)theEvent {
-	if (![self isActive]) {
+	_editRequested = YES;
+	[super mouseDown:theEvent];
+}
+
+- (void)mouseExited:(NSEvent *)theEvent {
+	_editRequested = NO;
+	[super mouseDragged:theEvent];
+}
+
+- (void)mouseUp:(NSEvent *)theEvent {
+	if (![self isActive] && _editRequested) {
 		[self makeActive];
 	}
 	else {
