@@ -8,9 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class GSGist;
 
 @protocol GSAuthDelegate
 - (NSString *)gitPath;
 - (NSString *)userName;
 - (NSString *)token;
+- (void)loadFromGitHub:(GSGist *)gist;
+- (void)saveToGitHub:(GSGist *)gist;
 @end

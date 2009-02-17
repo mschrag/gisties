@@ -9,7 +9,6 @@
 #import "GSGist.h"
 #import "NSDictionary+http.h"
 #import "UKXattrMetadataStore.h"
-#import "GSAppDelegate.h"
 
 @interface GSGist (private)
 - (int)execute:(NSArray *)arguments error:(NSError **)error;
@@ -85,13 +84,14 @@
 
 - (void)setName:(NSString *)name {
 	if ([name hasPrefix:@"http://"] || [name hasPrefix:@"https://"]) {
-		NSString *gistID = [[[NSURL URLWithString:name] path] lastPathComponent];
-		[self setGistID:gistID];
-		
-		[(GSAppDelegate *)[[NSApplication sharedApplication] delegate] loadFromGitHub:self];
-		//NSError *error;
-		//[self loadFromGitHub:&error];
-		//	https://gist.github.com/5fb0109fafeda16973a1
+		if ([self temporary]) {
+			NSString *gistID = [[[NSURL URLWithString:name] path] lastPathComponent];
+			[self setGistID:gistID];
+			[_authDelegate loadFromGitHub:self];
+			//NSError *error;
+			//[self loadFromGitHub:&error];
+			//	https://gist.github.com/5fb0109fafeda16973a1
+		}
 	}
 	else {
 		[name retain];
@@ -153,19 +153,6 @@
 }
 
 - (void)_loadFromGitHub:(NSError **)error {
-	@synchronized(self) {
-		if (_saving) {
-			NSLog(@"tried to sync while saving ... queuing");
-			_syncDuringSave = YES;
-			return;
-		}
-		if (_syncing) {
-			NSLog(@"you're already syncing, ignoring request");
-			return;
-		}
-		[self setSyncing:YES];
-	}
-	
 	NSString *gistiesFolder = [GSGist gistiesFolder];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	if (![fileManager fileExistsAtPath:gistiesFolder]) {
@@ -181,6 +168,23 @@
 		[self execute:[NSArray arrayWithObjects:@"clone", [NSString stringWithFormat:@"git@gist.github.com:%@.git", _gistID], gistyFolder, nil] error:error];
 		[self updateFolderAttributes:error];
 	}
+}
+
+- (void)loadFromGitHub:(NSError **)error {
+	@synchronized(self) {
+		if (_saving) {
+			NSLog(@"tried to sync while saving ... queuing");
+			_syncDuringSave = YES;
+			return;
+		}
+		if (_syncing) {
+			NSLog(@"you're already syncing, ignoring request");
+			return;
+		}
+		[self setSyncing:YES];
+	}
+	
+	[self _loadFromGitHub:error];
 	
 	@synchronized(self) {
 		[self setSyncing:NO];
@@ -190,10 +194,7 @@
 			_saveDuringSync = NO;
 		}
 	}
-}
 
-- (void)loadFromGitHub:(NSError **)error {
-	[self _loadFromGitHub:error];
 	[self performSelectorOnMainThread:@selector(loadFromDisk:) withObject:nil waitUntilDone:YES];
 	//[self loadFromDisk:error];
 }

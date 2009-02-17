@@ -19,11 +19,9 @@
 	if (self = [super init]) {
 		GSGist *gist = [[GSGist alloc] initWithAuthDelegate:[[NSApplication sharedApplication] delegate]];
 		[gist setPrivate:YES];
-		[gist setFrame:NSMakeRect(100, 100, 300, 300)];
+		[gist setFrame:NSMakeRect(-1, -1, 533, 300)];
 		[self setGist:gist];
 		[gist release];
-			// Add your subclass-specific initialization here.
-			// If an error occurs here, send a [self release] message and return nil.
 	}
 	return self;
 }
@@ -46,6 +44,27 @@
 	[[self gist] updateFolderAttributes:&error];
 }
 
+- (void)close {
+//	NSLog(@"close");
+	[super close];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+	//NSError *error;
+	//[[self gist] deleteFromGitHub:&error];
+	//[[self gist] deleteFromDisk:&error];
+}
+
+
+/*
+- (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo {
+	NSLog(@"canClose");
+}
+*/
+
+- (void)shouldCloseWindowController:(NSWindowController *)windowController delegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo {
+	[super shouldCloseWindowController:windowController delegate:delegate shouldCloseSelector:shouldCloseSelector contextInfo:contextInfo];
+}
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)controller {
 	[controller setShouldCascadeWindows:NO];
@@ -55,13 +74,15 @@
 	if (!NSIsEmptyRect([_gist frame])) {
 		[[controller window] setFrame:[_gist frame] display:YES];
 	}
+	if ([_gist frame].origin.x == -1) {
+		[[controller window] center];
+	}
 	[_contentView setTextContainerInset:NSMakeSize(6, 10)];
 	[[[controller window] standardWindowButton:NSWindowCloseButton] setEnabled:YES];
 }
 
 - (void)saveDocumentWithDelegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo {
 	NSError *error;
-	//[_gist setFrame:[[[[self windowControllers] lastObject] window] frame]];
 	[_gist saveToDisk:&error];
 	[(GSAppDelegate *)[[NSApplication sharedApplication] delegate] saveToGitHub:_gist];
 	if (delegate) {

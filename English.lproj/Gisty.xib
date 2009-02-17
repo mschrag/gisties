@@ -40,7 +40,7 @@
 				<string key="NSWindowClass">GSCustomWindow</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
-				<string key="NSWindowContentMinSize">{94, 86}</string>
+				<string key="NSWindowContentMinSize">{180, 86}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -83,7 +83,7 @@
 						<object class="NSTextField" id="748010276">
 							<reference key="NSNextResponder" ref="568628114"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{7, 393}, {214, 14}}</string>
+							<string key="NSFrame">{{7, 393}, {122, 14}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="353306902">
@@ -210,7 +210,7 @@
 													<string>WebURLsWithTitlesPboardType</string>
 												</object>
 											</object>
-											<string key="NSFrameSize">{0, 15}</string>
+											<string key="NSFrameSize">{0, 0}</string>
 											<reference key="NSSuperview" ref="1032933627"/>
 											<object class="NSTextContainer" key="NSTextContainer" id="654082010">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -232,7 +232,7 @@
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">11879</int>
+												<int key="NSFlags">274151</int>
 												<reference key="NSBackgroundColor" ref="181257199"/>
 												<reference key="NSInsertionColor" ref="229750590"/>
 												<object class="NSDictionary" key="NSSelectedAttributes">
@@ -282,11 +282,10 @@
 											</object>
 											<int key="NSTVFlags">7</int>
 											<string key="NSMaxSize">{509, 1e+07}</string>
-											<string key="NSMinize">{0, 0}</string>
 											<nil key="NSDelegate"/>
 										</object>
 									</object>
-									<string key="NSFrameSize">{509, 390}</string>
+									<string key="NSFrameSize">{509, 372}</string>
 									<reference key="NSSuperview" ref="902667268"/>
 									<reference key="NSNextKeyView" ref="305008466"/>
 									<reference key="NSDocView" ref="305008466"/>
@@ -300,7 +299,7 @@
 								<object class="NSScroller" id="331091730">
 									<reference key="NSNextResponder" ref="902667268"/>
 									<int key="NSvFlags">-2147483392</int>
-									<string key="NSFrame">{{494, 0}, {15, 358}}</string>
+									<string key="NSFrame">{{-100, -100}, {15, 358}}</string>
 									<reference key="NSSuperview" ref="902667268"/>
 									<reference key="NSTarget" ref="902667268"/>
 									<string key="NSAction">_doScroller:</string>
@@ -318,7 +317,7 @@
 									<double key="NSPercent">9.456522e-01</double>
 								</object>
 							</object>
-							<string key="NSFrame">{{-2, -2}, {509, 390}}</string>
+							<string key="NSFrame">{{-2, 16}, {509, 372}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSNextKeyView" ref="1032933627"/>
 							<int key="NSsFlags">528</int>
@@ -331,7 +330,7 @@
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
-				<string key="NSMinSize">{94, 108}</string>
+				<string key="NSMinSize">{180, 108}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 			</object>
 			<object class="NSCustomObject" id="796877042">
@@ -721,7 +720,7 @@
 					<reference ref="9"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<reference ref="9"/>
-					<string>{94, 86}</string>
+					<string>{180, 86}</string>
 					<string>GSCustomWindowView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>

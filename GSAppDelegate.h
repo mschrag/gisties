@@ -14,7 +14,4 @@
 	NSOperationQueue *_syncQueue;
 }
 
-- (void)loadFromGitHub:(GSGist *)gist;
-- (void)saveToGitHub:(GSGist *)gist;
-
 @end

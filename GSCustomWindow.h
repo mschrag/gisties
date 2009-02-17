@@ -10,6 +10,7 @@
 
 
 @interface GSCustomWindow : NSWindow {
+	NSRect _initialFrame;
 	NSPoint _initialLocation;
 	BOOL _resizing;
 }

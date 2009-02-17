@@ -39,7 +39,16 @@
 }
 
 - (void)performClose:(id)sender {
-	[self close];
+	NSDocument *aDoc = [[NSDocumentController sharedDocumentController] documentForWindow:self];
+	if ([self isDocumentEdited]) {
+		[aDoc canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(close) contextInfo:self];
+		
+		//[aDoc saveDocumentWithDelegate:self didSaveSelector:@selector(close) contextInfo:self];
+	}
+	else {
+		[aDoc close];
+	}
+	//[self close];
 }
 
 - (void)performMiniaturize:(id)sender {
@@ -52,15 +61,26 @@
 	NSRect screenFrame = [[NSScreen mainScreen] frame];
 	NSRect windowFrame = [self frame];
 	
+	//grab the current global mouse location; we could just as easily get the mouse location 
+	//in the same way as we do in -mouseDown:
+	NSPoint currentLocation = [self convertBaseToScreen:[self mouseLocationOutsideOfEventStream]];
+
 	if (_resizing) {
-		NSLog(@"resize");
+		NSSize dSize = NSMakeSize(currentLocation.x - _initialLocation.x, currentLocation.y - _initialLocation.y);
+		NSRect newFrame = NSMakeRect(_initialFrame.origin.x, _initialFrame.origin.y + dSize.height, _initialFrame.size.width + dSize.width, _initialFrame.size.height - dSize.height);
+		if (newFrame.size.width < [self minSize].width) {
+			newFrame.size.width = [self minSize].width;
+		}
+		if (newFrame.size.height < [self minSize].height) {
+			float dHeight = ([self minSize].height - newFrame.size.height);
+			newFrame.size.height = [self minSize].height;
+			newFrame.origin.y -= dHeight;
+		}
+		[self setFrame:newFrame display:YES];
 	}
 	else {
-		//grab the current global mouse location; we could just as easily get the mouse location 
-		//in the same way as we do in -mouseDown:
-		NSPoint currentLocation = [self convertBaseToScreen:[self mouseLocationOutsideOfEventStream]];
 		NSPoint newOrigin = NSMakePoint(currentLocation.x - _initialLocation.x, currentLocation.y - _initialLocation.y);
-		
+
 		// Don't let window get dragged up under the menu bar
 		if ((newOrigin.y + windowFrame.size.height) > (screenFrame.origin.y + screenFrame.size.height)) {
 			newOrigin.y = screenFrame.origin.y + (screenFrame.size.height - windowFrame.size.height);
@@ -77,17 +97,20 @@
 	NSRect windowFrame = [self frame];
 
 	NSPoint locationInWindow = [theEvent locationInWindow];
-	float resizeSquare = 30.0f;
+	float resizeSquare = 15.0f;
 	if (locationInWindow.x >= (windowFrame.size.width - resizeSquare) && locationInWindow.y <= resizeSquare) {
 		_resizing = YES;
+		_initialFrame = windowFrame;
+		//grab the mouse location in global coordinates
+		_initialLocation = [self convertBaseToScreen:locationInWindow];
 	}
 	else {
 		_resizing = NO;
+		//grab the mouse location in global coordinates
+		_initialLocation = [self convertBaseToScreen:locationInWindow];
+		_initialLocation.x -= windowFrame.origin.x;
+		_initialLocation.y -= windowFrame.origin.y;
 	}
-	//grab the mouse location in global coordinates
-	_initialLocation = [self convertBaseToScreen:locationInWindow];
-	_initialLocation.x -= windowFrame.origin.x;
-	_initialLocation.y -= windowFrame.origin.y;
 }
 
 @end

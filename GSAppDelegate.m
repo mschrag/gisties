@@ -20,6 +20,7 @@
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *gistiesFolder = [GSGist gistiesFolder];
 	NSArray *gistyPaths = [fileManager directoryContentsAtPath:gistiesFolder];
+	int gistyCount = 0;
 	for (NSString *gistyPath in gistyPaths) {
 		if ([[gistyPath pathExtension] isEqualToString:@"gisty"]) {
 			NSURL *gistyURL = [[NSURL alloc] initFileURLWithPath:[gistiesFolder stringByAppendingPathComponent:gistyPath] isDirectory:YES];
@@ -29,7 +30,13 @@
 				NSLog(@"temporary %@", [gist gistyFile]);
 			}
 			[gistyURL release];
+			gistyCount ++;
 		}
+	}
+	
+	if (gistyCount == 0) {
+		NSError *error;
+		[controller openUntitledDocumentAndDisplay:YES error:&error];
 	}
 }
 
@@ -68,7 +75,7 @@
 }
 
 - (NSString *)token {
-	return @"XXX";
+	return @"f2d384017505e6aad154d70b56cf0ad9";
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
